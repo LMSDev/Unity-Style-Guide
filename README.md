@@ -740,6 +740,7 @@ For unique but generic variations of assets, `variant` is a two digit number sta
 Depending on how your asset variants are made, you can chain together variant names. For example, if you are creating flooring assets for an Arch Viz project you should use the base name `flooring` with chained variants such as `flooring_marble_01`, `flooring_maple_01`, `flooring_tile_squares_01`.
 
 You can also chain variants if necessary, for instance for animations such as `player_walk_left`.
+
 **[⬆ Back to Top](#table-of-contents)**
 
 #### Article References:
