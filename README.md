@@ -1,6 +1,6 @@
-# Unity Style Guide
+# Penn UPGRADE Unity Style Guide
 
-This article contains irulesdeas for setting up a projects structure and a naming convention for scripts and assets in Unity.
+This document contains rules for setting up a projects structure and a naming convention for scripts and assets in Unity.
 
 <a name="toc"></a>
 ## Table of Contents
