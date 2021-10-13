@@ -471,7 +471,6 @@ The // (two slashes) style of comment tags should be used in most situations. Wh
 
 #### Regions
 The `#region` directive enables you to collapse and hide sections of code in C# files. We generally consider the usage of regions a code smell as it usually is an indicator for excessively large files.
-```
 
 #### Spacing
 Do use a single space after a comma between function arguments.
