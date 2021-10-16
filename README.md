@@ -241,7 +241,7 @@ During a project's development, it is very common for team members to have a sor
 
 It is very easy for a team member to accidentally use assets that are not ready for use which will cause issues once those assets are removed. For example, an artist may be iterating on a modular set of static meshes and still working on getting their sizing and grid snapping correct. If a world builder sees these assets in the main project folder, they might use them all over a level not knowing they could be subject to incredible change and/or removal. This causes massive amounts of re-working by everyone on the team to resolve.
 
-If these modular assets were placed in a Developer folder, the world builder should never of had a reason to use them and the whole issue would never happen.
+If these modular assets were placed in a Developer folder, the world builder should never have had a reason to use them and the whole issue would never have happened.
 
 Once the assets are ready for use, an artist simply has to move the assets into the project specific folder. This is essentially 'promoting' the assets from experimental to production.
 
@@ -340,7 +340,7 @@ Source files should contain only one public type, although multiple internal cla
 
 Source files should be given the name of the public class in the file.
 
-Organize namespaces with a clearly defined structure,
+Organize namespaces with a clearly defined structure.
 
 Class members should be alphabetized, and grouped into sections:
 * Constant Fields
@@ -438,7 +438,7 @@ If a class has only a small number of variables, Foldout Groups are not required
 
 If a class has a moderate amount of variables (5-10), all [Serializable](#serializable) variables should have a non-default Foldout Group assigned. A common category is `Config`.
 
-* To create Foldout Groups define a `[Serializable] public Class` inside the main class however this can have a performance impact. This allows the use of the same variable name to be shared.
+* To create Foldout Groups, define a `[Serializable] public Class` inside the main class. However, this can have a performance impact. This allows the use of the same variable name to be shared.
 
 ```
 [[Serializable](https://docs.unity3d.com/ScriptReference/Serializable.html)]
@@ -450,7 +450,7 @@ public struct PlayerStats
 
 #### Commenting
 Comments should be used to describe intention, algorithmic overview, and/or logical flow.
-It would be ideal if from reading the comments alone someone other than the author could understand a function’s intended behavior and general operation.
+It would be ideal if from reading the comments alone, someone other than the author could understand a function’s intended behavior and general operation.
 
 While there are no minimum comment requirements and certainly some very small routines need no commenting at all, it is hoped that most routines will have comments reflecting the programmer’s intent and approach.
 
@@ -529,7 +529,7 @@ All of these variables are named redundantly. It is implied that the variable is
 In C#, variables have a concept of access level. Public means any code outside the class can access the variable. Protected means only the class and any child classes can access this variable internally. Private means only this class and no child classes can access this variable.
 Variables should only be made public if absolutely necessary.
 
-Prefer to use the attribute `[SerializeField]` instead of making a variable public.
+Using the attribute `[SerializeField]` is preferred over making a variable public.
 
 ##### Local Variables
 Local variables should use camelCase.
