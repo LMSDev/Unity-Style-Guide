@@ -1,6 +1,6 @@
 # Penn UPGRADE Unity Style Guide
 
-This document contains rules for setting up a projects structure and a naming convention for scripts and assets in Unity.
+This document contains rules for setting up a projects structure and a naming convention for scripts and assets in Unity. This is a <b>living document</b>, so any kind of feedback is welcome!
 
 <a name="toc"></a>
 ## Table of Contents
@@ -22,18 +22,15 @@ This document contains rules for setting up a projects structure and a naming co
 <a name="style"></a>
 ### 1.1 Style
 
-#### If your project already has a style guide, you should follow it.
-If you are working on a project or with a team that has a pre-existing style guide, it should be respected.  Any inconsistency between an existing style guide and this guide should defer to the existing.
-
-Style guides should be living documents however and you should propose style guide changes to an existing style guide as well as this guide if you feel the change benefits all usages.
-
-> ##### *Arguments over style are pointless. There should be a style guide, and you should follow it.*
-> [_Rebecca Murphey_](https://rmurphey.com)
-
 #### All structure, assets, and code in any project should look like a single person created it, no matter how many people contributed.
 Moving from one project to another should not cause a re-learning of style and structure. Conforming to a style guide removes unneeded guesswork and ambiguities.
 
 It also allows for more productive creation and maintenance as one does not need to think about style, simply follow instructions. This style guide is written with best practices in mind, meaning that by following this style guide you will also minimize hard to track issues.
+
+Style guides should be living documents however and you should propose style guide changes to an existing style guide as well as this guide if you feel the change benefits all usages.
+
+>##### *Arguments over style are pointless. There should be a style guide, and you should follow it.*
+> [_Rebecca Murphey_](https://rmurphey.com)
 
 #### Friends do not let friends have bad style.
 If you see someone working either against a style guide or no style guide, try to correct them.
@@ -82,9 +79,6 @@ In this style, we will be using a structure that groups asset types with folders
 
 <pre>
 Assets
-    <a name="#structure-developers">_Developers</a>(Use a `_`to keep this folder at the top)
-        DeveloperName
-            (Work in progress assets)
     <a name="structure-top-level">ProjectName</a>
             Characters
             	Anakin
@@ -153,7 +147,7 @@ The reasons for this structure are listed in the following sub-sections.
 
 > 2.2 [Top-Level Folders](#structure-top-level)
 
-> 2.3 [Developer Folders](#structure-developers)
+> 2.3 [Developer Branches](#structure-developers)
 
 > 2.4 [Levels](#levels)
 
@@ -207,15 +201,13 @@ If you find that the content browser has an empty folder you can't delete, you s
 ### 2.2 Use A Top Level Folder For Project Specific Assets
 All of a project's assets should exist in a folder named after the project. For example, if your project is named 'Generic Shooter', _all_ of it's content should exist in `Assets/GenericShooter`.
 
-> The `Developers` folder is not for assets that your project relies on and therefore is not project specific. See [Developer Folders](#2.3) for details about this.
-
 There are multiple reasons for this approach.
 
 <a name="2.2.1"></a>
 #### No Global Assets
 Often in code style guides it is written that you should not pollute the global namespace and this follows the same principle. When assets are allowed to exist outside of a project folder it often becomes much harder to enforce a strict structure layout as assets not in a folder encourages the bad behavior of not having to organize assets.
 
-Every asset should have a purpose, otherwise it does not belong in a project. If an asset is an experimental test and shouldn't be used by the project it should be put in a [`Developer`](#2.3) folder.
+Every asset should have a purpose, otherwise it does not belong in a project. If an asset is an experimental test and shouldn't be used by the project it should be put in a [`Developer`](#2.3) branch.
 
 <a name="2.2.2"></a>
 #### Reduce Migration Conflicts
@@ -236,14 +228,14 @@ If your project plans to release DLC or has multiple sub-projects associated wit
 
 <a name="2.3"></a>
 <a name="structure-developers"></a>
-### 2.3 Use Developers Folder For Local Testing
-During a project's development, it is very common for team members to have a sort of 'sandbox' where they can experiment freely without risking the core project. Because this work may be ongoing, these team members may wish to put their assets on a project's source control server. Not all teams require use of Developer folders, but ones that do use them often run into a common problem with assets submitted to source control.
+### 2.3 Use Developer Branches For Local Testing
+During a project's development, it is very common for team members to have a sort of 'sandbox' where they can experiment freely without risking the core project. Because this work may be ongoing, these team members may wish to put their assets on a project's source control server.
 
 It is very easy for a team member to accidentally use assets that are not ready for use which will cause issues once those assets are removed. For example, an artist may be iterating on a modular set of static meshes and still working on getting their sizing and grid snapping correct. If a world builder sees these assets in the main project folder, they might use them all over a level not knowing they could be subject to incredible change and/or removal. This causes massive amounts of re-working by everyone on the team to resolve.
 
-If these modular assets were placed in a Developer folder, the world builder should never have had a reason to use them and the whole issue would never have happened.
+If these modular assets were placed in a development branch, the world builder should never have had a reason to use them and the whole issue would never have happened.
 
-Once the assets are ready for use, an artist simply has to move the assets into the project specific folder. This is essentially 'promoting' the assets from experimental to production.
+Once the assets are ready for use, an artist simply has to move the assets into the project specific folder on the main branch. This is essentially 'promoting' the assets from experimental to production.
 
 
 <a name="levels"></a>
@@ -362,49 +354,49 @@ Within each of these groups order by access:
 ```
 namespace ProjectName
 {
-	/// <summary>  
-	/// Brief summary of what the class does
-	/// </summary>
+    /// <summary>  
+    /// Brief summary of what the class does
+    /// </summary>
     public class Account
     {
-      // Fields
- 
-	  public string BankName;
-	  public const string ShippingType = "DropShip";
-	  
-      /// <summary>
-      /// Static fields come first and all fields should have a summary.
-      /// </summary>
-      private static decimal reserves;
-  
-      /// <summary>
-      /// This field gets exposed via the SerializeField property.
-      /// </summary>
-      [Tooltip("Private variables set in the Inspector, should have a Tooltip")]
-      [SerializeField]
-      private float timeToDie;
-	  
-	  // Properties
-	  
-      public string Number {get; set;}
-      public DateTime DateOpened {get; set;}
-      public DateTime DateClosed {get; set;}
-      public decimal Balance {get; set;}
+        // Fields
+
+        public string BankName;
+        public const string ShippingType = "DropShip";
+        
+        /// <summary>
+        /// Static fields come first and all fields should have a summary.
+        /// </summary>
+        private static decimal reserves;
+
+        /// <summary>
+        /// This field gets exposed via the SerializeField property.
+        /// </summary>
+        [Tooltip("Private variables set in the Inspector, should have a Tooltip")]
+        [SerializeField]
+        private float timeToDie;
+        
+        // Properties
+        
+        public string Number {get; set;}
+        public DateTime DateOpened {get; set;}
+        public DateTime DateClosed {get; set;}
+        public decimal Balance {get; set;}
             
-	  // LifeCycle
-	  
-      public Awake()
-      {
+        // LifeCycle
+
+        public Awake()
+        {
         // ...
-      }
-      
-	  // Public Methods
-	  
-      public AddObjectToBank()
-      {
+        }
+
+        // Public Methods
+
+        public AddObjectToBank()
+        {
         // ...
-      }
-    }
+        }
+        }
 }
 ```
 
@@ -425,7 +417,7 @@ Simply, any function that has an access modifier of Public should have its summa
 /// </summary>
 public void Fire()
 {
-// Fire the gun.
+    // Fire the gun.
 }
 ```
 
@@ -438,15 +430,18 @@ If a class has only a small number of variables, Foldout Groups are not required
 
 If a class has a moderate amount of variables (5-10), all [Serializable](#serializable) variables should have a non-default Foldout Group assigned. A common category is `Config`.
 
-* To create Foldout Groups, define a `[Serializable] public Class` inside the main class. However, this can have a performance impact. This allows the use of the same variable name to be shared.
+* To create Foldout Groups, define a `[Serializable] public Class` inside the main class. However, this can have a performance impact.
 
 ```
 [[Serializable](https://docs.unity3d.com/ScriptReference/Serializable.html)]
 public struct PlayerStats
-	{
-        public int MovementSpeed;
-    }
+{
+    public int MovementSpeed;
+}
 ```
+
+This is how Foldout Groups are displayed in the Unity Editor.
+![Foldout Grous Example](https://docs.unity3d.com/StaticFiles/ScriptRefImages/FoldoutUsageScreenshot.png)
 
 #### Commenting
 Comments should be used to describe intention, algorithmic overview, and/or logical flow.
@@ -463,10 +458,10 @@ End comment text with a period.
 
 Insert one space between the comment delimiter (//) and the comment text, as shown in the following example.
 
-The // (two slashes) style of comment tags should be used in most situations. Where ever possible, place comments above the code instead of beside it. Here are some examples:
+The // (two slashes) style of comment tags should be used in most situations. Where ever possible, place comments above the code instead of beside it. Here is an example:
 ```
         // Sample comment above a variable.
-        private int _myInt = 5;
+        private int myInt = 5;
 ```
 
 #### Regions
@@ -479,6 +474,10 @@ Example: `Console.In.Read(myChar, 0, 1);`
 * Do not use a space after the parenthesis and function arguments.
 * Do not use spaces between a function name and parenthesis.
 * Do not use spaces inside brackets.
+
+#### Braces
+Unlike Java or certain C-styles, braces in C# are generally placed on the next line.
+
 <a name="3.1"></a>
 <a name="compiling"></a>
 ### 3.2 Compiling
@@ -535,7 +534,8 @@ Using the attribute `[SerializeField]` is preferred over making a variable publi
 Local variables should use camelCase.
 
 ###### Implicitly Typed Local Variables
-Use implicit typing for local variables when the type of the variable is obvious from the right side of the assignment, or when the precise type is not important.
+You can use implicit typing for local variables when the type of the variable is obvious from the right side of the assignment, or when the precise type is not important. This does not have any real world effect and does not impact performance. Especially for more complicated types this
+makes code easier to read.
 ```
 var var1 = "This is clearly a string.";
 var var2 = 27;
@@ -587,7 +587,7 @@ A Value Range only needs to be defined if the bounds of a value are known. While
 ##### Booleans
 
 ###### Boolean Prefix
-All booleans should be named in PascalCase but prefixed with a verb.
+All booleans should be named in camelCase and prefixed with a verb.
 
 Example: Use `isDead` and `hasItem`, **not** `Dead` and `Item`.
 
@@ -616,8 +616,8 @@ public enum WeaponType
 [Flags]
 public enum Dockings
 {
-	None = 0,
-	Top = 1,
+    None = 0,
+    Top = 1,
 }
 
 public WeaponType Weapon
@@ -723,17 +723,17 @@ Naming conventions should be treated as law. A project that conforms to a naming
 
 Most things are grouped by folder to make locating them easier.
 
-**Assets use [PascalCase](#cases)**
+**Assets use [lowercase](#cases)**
 
 <a name="base-asset-name"></a>
 <a name="4.1"></a>
-### 4.1 Base Asset Name - `baseAssetName_variant`
+### 4.1 Base Asset Name - `baseassetname_variant`
 All assets should have a _Base Asset Name_. A Base Asset Name represents a logical grouping of related assets. Any asset that is part of this logical group 
-should follow the the standard of `baseAssetName_variant`.
+should follow the the standard of `baseassetname_variant`.
 
-`BaseAssetName` should be determined by short and easily recognizable name related to the context of this group of assets. For example, if you had a character named Bob, all of Bob's assets would have the `baseAssetName` of `bob`.
+`Baseassetname` should be determined by short and easily recognizable name related to the context of this group of assets. For example, if you had a character named Bob, all of Bob's assets would have the `baseassetname` of `bob`.
 
-For unique and specific variations of assets, `variant` is either a short and easily recognizable name that represents logical grouping of assets that are a subset of an asset's base name. For example, if Bob had multiple skins these skins should still use `bob` as the `baseAssetName` but include a recognizable `variant`. An 'Evil' skin would be referred to as `bob_evil` and a 'Retro' skin would be referred to as `bob_retro`.
+For unique and specific variations of assets, `variant` is either a short and easily recognizable name that represents logical grouping of assets that are a subset of an asset's base name. For example, if Bob had multiple skins these skins should still use `bob` as the `baseassetname` but include a recognizable `variant`. An 'Evil' skin would be referred to as `bob_evil` and a 'Retro' skin would be referred to as `bob_retro`.
 
 For unique but generic variations of assets, `variant` is a two digit number starting at `01`. For example, if you have an environment artist generating nondescript rocks, they would be named `rock_01`, `rock_02`, `rock_03`, etc. Except for rare exceptions, you should never require a three digit variant number. If you have more than 100 assets, you should consider organizing them with different base names or using multiple variant names.
 
